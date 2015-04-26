@@ -127,11 +127,9 @@ Import语句要被按照下面的顺序进行分组，每组之间使用一个�
 
 ###3.4 类声明
 
-3.4.1 Exactly one top-level class declaration
 ####3.4.1 只有一个顶级类声明
-Each top-level class resides in a source file of its own.
-每个顶级类都存在于同名的源文件中。
-3.4.2 Class member ordering
+
+每个顶级类都位于以其类名来命名的源文件中。
 
 ####3.4.2 类成员顺序
 
