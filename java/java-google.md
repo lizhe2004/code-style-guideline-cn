@@ -1,6 +1,5 @@
 #Google Java编码规范中文版
 
-[TOC]
 
 ##1 介绍
 
@@ -88,26 +87,24 @@ Other "terminology notes" will appear occasionally throughout the document.
 包声明语句不能换行。列限制（4.4小节，列限制：80或100）的规则不适用于包声明语句。
 
 ###3.3 Import语句
-3.3.1 No wildcard imports
 ####3.3.1 禁止在Import语句中使用通配符
-Wildcard imports, static or otherwise, are not used.
 除了static import外，不要在import语句中使用通配符，
 
 > (译注，也就是禁止使用类似 import java.utils.*这样的语句。
 static import是Java 5增加的功能。
 就是将Import类中的静态方法，可以作为本类的静态方法来用。比如 
- 
-	import static java.lang.Integer
-	class YourClass
-	{
-	 void f ()
-	 {
-	   int i = parseInt ("123") ;
-	   // 相当于int i = Integer.parseInt ("123") ;
-	 }
-	}
-	)`
- 
+```java
+import static java.lang.Integer
+class YourClass
+{
+ void f ()
+ {
+   int i = parseInt ("123") ;
+   // 相当于int i = Integer.parseInt ("123") ;
+ }
+}
+)`
+```
     
 
 ####3.3.2 禁止换行
@@ -126,9 +123,8 @@ Import语句要被按照下面的顺序进行分组，每组之间使用一个�
 
  
 
-Within a group there are no blank lines, and the imported names appear in ASCII sort order. (Note: this is not the same as the import statements being in ASCII sort order; the presence of semicolons warps the result.)
-同组里的语句之间没有空行，所导入的内容的名称按照ASCII的顺序进行排序（注意：这并不同于将import语句按照ASCII码的顺序进行排序，分号的存在会干扰结果。）
-3.4 Class declaration
+同组里的语句之间没有空行，所导入的名称按照ASCII的顺序进行排序（注意：这并不同于将import语句按照ASCII码的顺序进行排序，分号的存在会干扰结果。）
+
 ###3.4 类声明
 
 3.4.1 Exactly one top-level class declaration
