@@ -24,7 +24,7 @@ Other "terminology notes" will appear occasionally throughout the document.
 
 ###2.1 文件名
 
-源文件名由它所包含的顶层类的名称以及`.java`扩展名组成，类的名称是对大小写敏感的。
+源文件的文件名是由该文件所包含的顶层类的类名以及`.java`扩展名组成的，类的名称是对大小写敏感的。
 
 ###2.2 文件编码：UTF-8
 
@@ -36,7 +36,7 @@ Other "terminology notes" will appear occasionally throughout the document.
 除了行结束符序列（译注：是指"\r\n"这种字符串）以外，ASCII水平间隔字符（0X20）（译注：即空格字符）是唯一能在源文件中出现的空白字符。这意味着：
 
 1. 字符串中的所有其他空白字符都需要进行转义。
-2.  Tab字符(也名制表符)**不能**用于缩进。
+2.  Tab字符(也叫制表符)**不能**用于缩进。
 
 
 ####2.3.2 特殊转义字符
@@ -44,9 +44,9 @@ Other "terminology notes" will appear occasionally throughout the document.
 对于那些具有特殊转义字符的字符(`\b`、`\t`、`\n`、`\f`、`\r`、`\"`、`\'`和`\\`)，我们使用转义字符，而非对应的十六进制数值（比如`\012`）或者Unicode（比如`\u000a`）转义符。
 
 ####2.3.3 非ASCII字符
-对于其他的非ASCII字符，不管是使用真正的Unicode字符（比如`∞`）还是使用等价的Unicode转义符（比如`\u221e`)，这都是可以的，这仅仅取决于哪种方式能使代码**更加易于阅读和理解**。
+对于其他的非ASCII字符，不管是使用真正的Unicode字符（比如`∞`）还是使用等价的Unicode转义符（比如`\u221e`)，都是可以的，这仅仅取决于哪种方式能使代码**更加易于阅读和理解**。
 
-`小提示：在使用Unicode转义符的情况下，有时候甚至是使用真正的Unicode字符的情况下，用注释来进行解释是非常有帮助的。`
+`小提示：在使用Unicode转义符，有时候甚至是使用真正的Unicode字符的情况下，用注释来进行解释是非常有帮助的。`
 
 例子：
 
@@ -70,10 +70,10 @@ Other "terminology notes" will appear occasionally throughout the document.
 
 一份源文件(按顺序)包含:
 
- 1. 版权信息（如果存在的话）
+ 1. 许可证或版权信息（如果存在的话）
  2. 包声明语句
  3. import语句
- 4. 只有一个顶级类
+ 4. 一个顶级类
 
 在文件中，各部分之间要用一个空行进行分隔。
 
@@ -81,7 +81,7 @@ Other "terminology notes" will appear occasionally throughout the document.
 ###3.1 许可证或版权信息（如果存在的话）
 
 
-如果许可证或版权信息属于某个文件的话，它就应该放在这里。
+如果一个文件包含许可证或版权信息的话，这些信息就应该放在这里。
 
 ###3.2 包声明语句
 
@@ -89,25 +89,42 @@ Other "terminology notes" will appear occasionally throughout the document.
 
 ###3.3 Import语句
 3.3.1 No wildcard imports
-####3.3.1 Import指令语句
+####3.3.1 禁止在Import语句中使用通配符
 Wildcard imports, static or otherwise, are not used.
-不要使用通配符式的import、static或者其他的import。
-3.3.2 No line-wrapping
+除了static import外，不要在import语句中使用通配符，
 
-####3.3.2 不要换行
-Import statements are not line-wrapped. The column limit (Section 4.4, Column limit: 80 or 100) does not apply to import statements.
-Import指令不能换行。列限制（4.4小节，列限制：80或100）规则不适用于import指令。
+> (译注，也就是禁止使用类似 import java.utils.*这样的语句。
+static import是Java 5增加的功能。
+就是将Import类中的静态方法，可以作为本类的静态方法来用。比如 
+ 
+	import static java.lang.Integer
+	class YourClass
+	{
+	 void f ()
+	 {
+	   int i = parseInt ("123") ;
+	   // 相当于int i = Integer.parseInt ("123") ;
+	 }
+	}
+	)`
+ 
+    
 
-3.3.3 Ordering and spacing
+####3.3.2 禁止换行
+
+不能将一条Import语句换行。列限制（4.4小节，列限制：80或100）规则不适用于import语句。
+
 ####3.3.3 顺序和间隔
-Import statements are divided into the following groups, in this order, with each group separated by a single blank line:
-Import指令语句会被按照下面的顺序分成几组，每组之间使用一个空行进行分割：
 
- 1. 将所有的静态imports放到一组中
- 2. `com.google` imports (只有当源文件在`com.google`包空间时)
- 3. 第三方的包的imports，按照ASCII码排列顺序将每个顶级包分为一组，比如：`android`, `com`, `junit`, `org`, `sun`
- 4. `java` imports
- 5. `javax` imports
+Import语句要被按照下面的顺序进行分组，每组之间使用一个空行进行分割：
+
+1. 将所有的static imports语句放到一组中
+2. `com.google` imports语句(只有当源文件在`com.google`包空间时)
+3.  第三方的包的imports语句：按照ASCII码的排列顺序将每个顶级包分为一组，比如：`android`, `com`, `junit`, `org`, `sun`
+4.  `java` imports语句
+5.  `javax` imports语句
+
+ 
 
 Within a group there are no blank lines, and the imported names appear in ASCII sort order. (Note: this is not the same as the import statements being in ASCII sort order; the presence of semicolons warps the result.)
 同组里的语句之间没有空行，所导入的内容的名称按照ASCII的顺序进行排序（注意：这并不同于将import语句按照ASCII码的顺序进行排序，分号的存在会干扰结果。）
