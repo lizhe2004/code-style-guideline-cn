@@ -182,50 +182,35 @@ Projects are free to choose a column limit of either 80 or 100 characters. Excep
  - package和import语句（见3.2小节中的Package语句和3.3小节的Import语句）
  - 注释中包含可能会被复制-粘贴到shell中的命令行指令的行。
 
-###4.5 换行
+###4.5 断行
 
-Terminology Note: When code that might otherwise legally occupy a single line is divided into multiple lines, typically to avoid overflowing the column limit, this activity is called line-wrapping.
-术语说明：当
+术语说明：当为了避免超过每行最大字符限制，而将那些本来能够合法地只占用一行的代码分到多行时，这种活动就被称作断行。
 
-There is no comprehensive, deterministic formula showing exactly how to line-wrap in every situation. Very often there are several valid ways to line-wrap the same piece of code.
-并不存在一种全面的、确定性的准则来解释清楚在每种情况下该如何进行换行。很对时候，对同一块代码有好几种合法的换行方式。
 
-Tip: Extracting a method or local variable may solve the problem without the need to line-wrap.
-小提示：将方法或者本地变量抽取出来有可能就解决问题了，而不再需要进行换行了。
+并不存在一种全面的、确定性的准则来解释清楚在每种情况下该如何进行断行。很对时候，对同一块代码有好几种合法的断行方式。
 
-4.5.1 Where to break
+
+>小提示：有可能将方法或者本地变量抽取出来就解决问题了，这样就不再需要进行断行了。
+
 ####4.5.1 何处断行
-The prime directive of line-wrapping is: prefer to break at a higher syntactic level. Also:
-换行的主要最高指导原则是：倾向于在更高一些的语法级别上进行断行。还有：
 
-When a line is broken at a non-assignment operator the break comes before the symbol. (Note that this is not the same practice used in Google style for other languages, such as C++ and JavaScript.)
-当在非赋值运算符处进行断行时，断行要在运算符号之前。（译注：比如+号处进行断行的话，+号要处于下一行）（注意：这和 Google公司在其他语言（如C++和JavaScript）的编码风格所采用的做法有所不同）。
+断行的主要最高指导原则是：倾向于在更高一些的语法级别上进行断行。还有：
 
-This also applies to the following "operator-like" symbols: the dot separator (.), the ampersand in type bounds (<T extends Foo & Bar>), and the pipe in catch blocks (catch (FooException | BarException e)).
-这一规则同样适用于下列与运算符类似的符号：点分隔符(.)，类型绑定中的&符号 (<T extends Foo & Bar>)以及 catch代码块中的竖杠符号 (catch (FooException | BarException e))
+ 
+ 1. 当在非赋值运算符处进行断行时，断行要在运算符号之前。（译注：比如+号处进行断行的话，+号要处于下一行）（注意：这和 Google公司在其他语言（如C++和JavaScript）的编码风格所采用的做法有所不同）。
+ - 这一规则同样适用于下列与运算符类似的符号：点分隔符(`.`)，类型绑定中的`&`符号 (```<T extends Foo & Bar>```)以及 catch代码块中的`竖杠 |`符号 (```catch (FooException | BarException e)```)
 
-When a line is broken at an assignment operator the break typically comes after the symbol, but either way is acceptable.
-当在某个赋值运算符处断行时，通常是在运算符的后面进行断行，但是在前面断行也是可以接受的。
-
-This also applies to the "assignment-operator-like" colon in an enhanced for ("foreach") statement.
-这一规则也同样适用于("foreach")语句中和赋值运算符类似的冒号。
-
-A method or constructor name stays attached to the open parenthesis (() that follows it.
-方法或者构造函数的名称要和后面的左括号(()保持在同一行。
-
-A comma (,) stays attached to the token that precedes it.
-逗号（,)要和前面的内容在同一行。
-
-4.5.2 Indent continuation lines at least +4 spaces
+ 2. 当在某个赋值运算符处断行时，通常是在运算符的后面进行断行，但是在前面断行也是可以接受的。
+ - 这一规则也同样适用于("foreach")语句中和赋值运算符类似的冒号。
+ 3. 方法或者构造函数的名称要和后面的左括号(()保持在同一行。
+ 4. 逗号（,)要和前面的内容在同一行。
 ####4.5.2 后续行要缩进至少+4个空格字符
-When line-wrapping, each line after the first (each continuation line) is indented at least +4 from the original line.
-当进行换行时，第一行后面的每一行（也被称为续行）都要至少比第一行多缩进四个空格字符
-When there are multiple continuation lines, indentation may be varied beyond +4 as desired. In general, two continuation lines use the same indentation level if and only if they begin with syntactically parallel elements.
-当有多个续行时，缩进须比要求的+4个字符要多。通常，当且仅当两个续行开头的元素在语法上是并列关系的时候，这两个续行才使用相同的缩进级别。
 
-Section 4.6.3 on Horizontal alignment addresses the discouraged practice of using a variable number of spaces to align certain tokens with previous lines.
-4.6.3的水平对齐小节中指出使用数量不定的空格来将某些符号与前面行的符号对齐是一种被阻止的行为。
-4.6 Whitespace
+当进行断行时，第一行后面的每一行（也被称为续行）都要至少比第一行多缩进四个空格字符
+
+当有多个续行时，缩进须比要求的+4个字符要多。通常，当且仅当两个续行开头的元素在语法上是并列关系的时候，这两个续行才使用相同的缩进级别。
+4.6.3小节的的水平对齐中指出使用数量不定的空格来将某些符号与前面行的符号对齐是一种被阻止的行为。
+
 ###4.6 空白
 
 4.6.1 Vertical Whitespace
