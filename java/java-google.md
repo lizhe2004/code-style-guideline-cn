@@ -1,23 +1,24 @@
 #Google Java编码规范中文版
 
+[TOC]
 
 ##1 介绍
 
 本文档**完整**地定义了Google公司使用java™语言编写源代码时所采用的编码规范。当且仅当java源文件遵循本规范时，我们才说它是符合Google风格的。
 
-同其他编码风格指南一样，我们所讨论的内容不仅仅包括编码格式美观与否的问题，还囊括了其他类型的惯例约定或编码规范。然而，本文主要集中介绍的是我们所普遍遵循的**硬性规定**（**hard-and-fast rules**），并且避免提出一些不是很确定是否可以强制实施的建议(不论是由人还是工具来实施)。
+同其他编码风格指南一样，我们所讨论的内容不仅仅包括编码格式美观与否的问题，还囊括了其他类型的惯例约定或编码规范。然而，本文主要集中介绍的是我们所普遍遵循的**硬性规定**（**hard-and-fast rules**），并且避免提出一些有争议不是很确定是否可以强制实施的建议(不论是由人还是工具来实施)。
 
 ###1.1 术语说明
 
 在本文档中，除非另外声明：
 
 单词class “类”用于表示的内容包括一个“普通”类、enum枚举类、接口或者注解类型（`@interface`）。
-Other "terminology notes" will appear occasionally throughout the document.
-词语comment指的是实现注释（implementation comments）。我们并不使用"文档注释（documentation comments）"一词，而是使用一个常用的术语“Javadoc”来代替。
+词语comment指的是实现注释（implementation comments）。我们并不使用"文档注释（documentation comments）"一词，而是使用另一个常用的术语“Javadoc”来代替。
+其他“术语说明”将会在本文档中其他地方出现。
 
 ###1.2 指南说明
 
-本文档中的实例代码并不是标准。这就是说，尽管这些例子是符合Google风格的，但是它们并不能说明这是展示代码的唯一方式。不能将例子中所选择的那些本来是可选的格式化样式作为规则进行强制实施。
+本文档中的实例代码并不是标准。这就是说，尽管这些例子是符合Google风格的，但是它们并不能说明这是展示代码的唯一方式。不能将例子中所选择的那些格式化样式作为规则进行强制实施，它们只是可选的样式而已。
 
 ##2 源文件基本要素
 
@@ -27,12 +28,12 @@ Other "terminology notes" will appear occasionally throughout the document.
 
 ###2.2 文件编码：UTF-8
 
-源文件是采用UTF-8进行编码的。
+源文件采用UTF-8进行编码。
 
 ###2.3 特殊字符
 
 ####2.3.1 空白字符
-除了行结束符序列（译注：是指"\r\n"这种字符串）以外，ASCII水平间隔字符（0X20）（译注：即空格字符）是唯一能在源文件中出现的空白字符。这意味着：
+除了行结束符序列（line terminator sequence）（译注：是指"\r\n"这种换行符字符串）以外，ASCII水平间隔字符（0X20）（译注：即空格字符）是唯一能在源文件中出现的空白字符。这意味着：
 
 1. 字符串中的所有其他空白字符都需要进行转义。
 2.  Tab字符(也叫制表符)**不能**用于缩进。
@@ -40,19 +41,19 @@ Other "terminology notes" will appear occasionally throughout the document.
 
 ####2.3.2 特殊转义字符
 
-对于那些具有特殊转义字符的字符(`\b`、`\t`、`\n`、`\f`、`\r`、`\"`、`\'`和`\\`)，我们使用转义字符，而非对应的十六进制数值（比如`\012`）或者Unicode（比如`\u000a`）转义符。
+对于那些具有特殊转义字符的字符(`\b`、`\t`、`\n`、`\f`、`\r`、`\"`、`\'`和`\\`)，我们使用转义字符，而非对应的八进制数值（比如`\012`）或者Unicode（比如`\u000a`）转义符。
 
 ####2.3.3 非ASCII字符
-对于其他的非ASCII字符，不管是使用真正的Unicode字符（比如`∞`）还是使用等价的Unicode转义符（比如`\u221e`)，都是可以的，这仅仅取决于哪种方式能使代码**更加易于阅读和理解**。
+对于其他的非ASCII字符，不管是直接使用真正的Unicode字符（比如`∞`）还是使用等价的Unicode转义符（比如`\u221e`)，都是可以的，这仅仅取决于哪种方式能使代码**更加易于阅读和理解**。
 
-`小提示：在使用Unicode转义符，有时候甚至是使用真正的Unicode字符的情况下，用注释来进行解释是非常有帮助的。`
+`小提示：在使用Unicode转义符，有时候甚至是直接使用真正的Unicode字符的情况下，写一些注释来进行解释是非常有帮助的。`
 
 例子：
 
 
-| 案例 | 讨论 |
-| -- | -- |
-| ```String unitAbbrev = "μs";``` | 优，即便没有注释也是非常清晰的 |
+| 案例  | 讨论 |
+| --   | --   |
+| `String unitAbbrev = "μs";` | 优，即便没有注释也是非常清晰的 |
 | ```String unitAbbrev = "\u03bcs"; // "μs"``` | 可，但是没有必要这么做。|
 |```String unitAbbrev = "\u03bcs"; // 希腊字母mu，"s" ```| 可, 累赘并且容易出现错误|
 |```String unitAbbrev = "\u03bcs";``` | 差，读者不清楚这是什么东西。 |
@@ -61,8 +62,8 @@ Other "terminology notes" will appear occasionally throughout the document.
 
 
 
-> 小提示：永远不要因为恐惧有一些程序不能正确地处理非ASCII字符而就让你的代码可读性变差。
-> 如果真的出现无法处理非ASCII字符的情况，那些程序无法工作了，那么需要修复的是那些程序。
+> 小提示：永远不要因为恐惧有一些程序不能正确地处理非ASCII字符而就不是用它，这会让你的代码可读性变差。
+> 如果真的出现无法处理非ASCII字符的情况而使得那些程序无法工作了，那么需要由那些程序来解决。
 >
 
 ##3 源文件结构
@@ -72,7 +73,7 @@ Other "terminology notes" will appear occasionally throughout the document.
  1. 许可证或版权信息（如果存在的话）
  2. 包声明语句
  3. import语句
- 4. 一个顶级类
+ 4. 一个顶级类（只能有一个）
 
 在文件中，各部分之间要用一个空行进行分隔。
 
@@ -80,32 +81,18 @@ Other "terminology notes" will appear occasionally throughout the document.
 ###3.1 许可证或版权信息（如果存在的话）
 
 
-如果一个文件包含许可证或版权信息的话，这些信息就应该放在这里。
+如果一个文件包含许可证或版权信息的话，这些信息就应该放在文件开头。
 
 ###3.2 包声明语句
 
-包声明语句不能换行。列限制（4.4小节，列限制：80或100）的规则不适用于包声明语句。
+包声明语句不能换行（译注：没有长度限制）。列限制（4.4小节，列限制：80或100）的规则不适用于包声明语句。
 
 ###3.3 Import语句
-####3.3.1 禁止在Import语句中使用通配符
-除了static import外，不要在import语句中使用通配符，
 
-> (译注，也就是禁止使用类似 import java.utils.*这样的语句。
-static import是Java 5增加的功能。
-就是将Import类中的静态方法，可以作为本类的静态方法来用。比如 
-```java
-import static java.lang.Integer
-class YourClass
-{
- void f ()
- {
-   int i = parseInt ("123") ;
-   // 相当于int i = Integer.parseInt ("123") ;
- }
-}
-)`
-```
-    
+####3.3.1 禁止在Import语句中使用通配符
+不要在import语句中使用通配符，不管是静态import 还是其他import。
+
+> (译注，也就是禁止使用类似 import java.utils.*这样的语句。）
 
 ####3.3.2 禁止换行
 
@@ -115,61 +102,44 @@ class YourClass
 
 Import语句要被按照下面的顺序进行分组，每组之间使用一个空行进行分割：
 
-1. 将所有的static imports语句放到一组中
-2. `com.google` imports语句(只有当源文件在`com.google`包空间时)
+1. 将所有的static import语句放到一组中
+2. `com.google`包的 imports语句(只有当源文件在`com.google`包空间时)
 3.  第三方的包的imports语句：按照ASCII码的排列顺序将每个顶级包分为一组，比如：`android`, `com`, `junit`, `org`, `sun`
-4.  `java` imports语句
-5.  `javax` imports语句
+4.  `java` import语句
+5.  `javax` import语句
 
- 
-
-同组里的语句之间没有空行，所导入的名称按照ASCII的顺序进行排序（注意：这并不同于将import语句按照ASCII码的顺序进行排序，分号的存在会干扰结果。）
-
+同组里的语句之间没有空行，所导入的内容的名称按照ASCII的顺序进行排序（注意：这并不同于将import语句按照ASCII码的顺序进行排序，分号的存在会干扰结果。）
 ###3.4 类声明
 
 ####3.4.1 只有一个顶级类声明
-
 每个顶级类都位于以其类名来命名的源文件中。
-
 ####3.4.2 类成员顺序
 
-The ordering of the members of a class can have a great effect on learnability, but there is no single correct recipe for how to do it. Different classes may order their members differently.
-一个类的成员的顺序对易学性有巨大的影响，但是并不存在一种正确的方式来明确如何进行排序。不同的类可能会以不同的方式对它们的成员进行排序。
+一个类的成员的排列顺序会极大地影响人们对这个类的学习和理解效率，但是并不存在一种绝对正确的排序方式。不同的类对它们的成员进行排序的方式可能各不相同。
 
-What is important is that each class order its members in some logical order, which its maintainer could explain if asked. For example, new methods are not just habitually added to the end of the class, as that would yield "chronological by date added" ordering, which is not a logical ordering.
-重要的是每个类都要采用某种逻辑顺序来对它的成员进行排序，一种在被别人问到的时候维护者能够将其解释清楚的逻辑顺序。比如，新的方法不能仅仅习惯性地添加到类的结尾那里，因为这会使得导致一种“按照添加的日期前后而排列”的顺序，这并不是一种逻辑顺序。
-3.4.2.1 Overloads: never split
-######3.4.2.1 重载：永远不要分割开
+重要的是每个类都要采用某种合乎逻辑意义的顺序来对它的成员进行排序，这样在被别人问到的时候维护者能够将其解释清楚。比如，新的方法不能仅仅习惯性地添加到类的结尾那里，因为这会导致出现一种“按照添加的日期前后而排列”的顺序，这并不是一种逻辑意义上的顺序。
 
-When a class has multiple constructors, or multiple methods with the same name, these appear sequentially, with no intervening members.
+######3.4.2.1 重载：永远不要将重载函数分开
 当一个类拥有多个构造函数或者多个同名的方法时，它们需要连续地列在一起，中间不能有其他成员。
 
-4 Formatting
 ##4 格式
 
 Terminology Note: block-like construct refers to the body of a class, method or constructor. Note that, by Section 4.8.3.1 on array initializers, any array initializer may optionally be treated as if it were a block-like construct.
-术语说明：块状结构指的是类、方法或者构造函数的主体部分。需要注意的是，对于4.8.3.1小节中的数组初始化，所有的数组初始化都可以选择性地作为块状结构来进行处理。
-4.1 Braces
+术语说明：块状结构指的是类、方法或者构造函数的主体部分(译注：花括号中的部分)。需要注意的是，对于4.8.3.1小节中的数组初始化，所有的数组初始化都可以选择性地作为块状结构来进行处理。
 ###4.1 大括号
-4.1.1 Braces are used where optional
-####4.1.1 在可选的情况下，使用大括号
-Braces are used with if, else, for, do and while statements, even when the body is empty or contains only a single statement.
-在if、else、for、do和while语句中使用大括号，即使执行体为空或者只包含一条语句。
 
-4.1.2 Nonempty blocks: K & R style
+####4.1.1 在大括号可用也可不用的情况下，使用大括号
+
+在if、else、for、do和while语句中要使用大括号，即使执行体为空或者只包含一条语句。
+
 ####4.1.2 非空代码块： K & R 风格
-Braces follow the Kernighan and Ritchie style ("Egyptian brackets") for nonempty blocks and block-like constructs:
-对于非空代码块以及块状结构，大括号要遵循Kernighan和Ritchie风格（埃及括号"Egyptian brackets"）：
-No line break before the opening brace.
-在左括号前不能换行。
-Line break after the opening brace.
-左括号后换行。
-Line break before the closing brace.
-在右括号前换行
 
-Line break after the closing brace if that brace terminates a statement or the body of a method, constructor or named class. For example, there is no line break after the brace if it is followed by else or a comma.
-只有当右括号是某个方法、构造函数或者所命名的类的主体部分或者一条语句的结束符的时候，才要在右括号后换行。比如，当括号后面跟着else或者逗号的时候，右括号后面就不换行了。
-Example:
+对于非空代码块以及块状结构，大括号要遵循Kernighan和Ritchie风格（埃及括号"Egyptian brackets"）：
+ - 左括号前不能换行。
+ - 左括号后换行。
+ - 在右括号前换行。
+ - 只有当使用右括号来结束某个方法、构造函数或者命名类的主体部分或者一条语句的的时候，才要在右括号后面换行。比如，当括号后面跟着else或者逗号的时候，右括号后面就不换行了。
+
 例子
 ```java
 return new MyClass() {
@@ -184,43 +154,35 @@ return new MyClass() {
   }
 };
 ```
-A few exceptions for enum classes are given in Section 4.8.1, Enum classes.
-对于枚举类的一些例外情况在4.8.1小节枚举类中会进行描述。
+对于枚举类的一些例外的情况会在4.8.1小节枚举类中进行描述。
 4.1.3 Empty blocks: may be concise
-####4.1.3 空代码块：
-An empty block or block-like construct may be closed immediately after it is opened, with no characters or line break in between ({}), unless it is part of a multi-block statement (one that directly contains multiple blocks: if/else-if/else or try/catch/finally).
-一个空的代码块或者块状结构可以在（{}）之间不包含任何字符或者换行，除非它是某个多种具有多个代码块的语句的一部分（一种直接包含多个代码块的语句有：if/else-if/else or try/catch/finally）
-Example:
+####4.1.3 空代码块：可以简洁一些
+一个空的代码块或者块状结构可以在（{}）之间不包含任何字符或者换行，除非它是某个具有多个代码块的语句的一部分（一种直接包含多个代码块的语句有：if/else-if/else or try/catch/finally）
+
 例子：
-  void doNothing() {}
-4.2 Block indentation: +2 spaces
+```java
+void doNothing() {}
+```
 4.2 块缩进：+2个空格
 
 Each time a new block or block-like construct is opened, the indent increases by two spaces. When the block ends, the indent returns to the previous indent level. The indent level applies to both code and comments throughout the block. (See the example in Section 4.1.2, Nonempty blocks: K & R Style.)
-每次开始一个新的代码块或者块状结构时，缩进要增加两个空格。当代码块结束时，缩进要恢复到之前的缩进层级上来。缩进的层级同样适用于代码块中的代码和注释。
+每次开始一个新的代码块或者块状结构时，缩进要增加两个空格。当代码块结束时，缩进要恢复到之前的缩进层级上来。缩进层级的要求同样适用于代码块中的代码和注释。（可参考4.1.2小节中的例子）
 
-4.3 One statement per line
+
 ###4.3 每行一条语句
-
-Each statement is followed by a line-break.
-每条语句的后面具有一个换行符：
-4.4 Column limit: 80 or 100
-###4.4 每行的字符长度最大为80或100
+每条语句的后面要有一个换行符。
+###4.4 每行的字符长度限制：为80或100
 
 Projects are free to choose a column limit of either 80 or 100 characters. Except as noted below, any line that would exceed this limit must be line-wrapped, as explained in Section 4.5, Line-wrapping.
-各个项目可以随意选择是将80还是100作为每行最大的字符长度。除非遇到下面列出的情形，否则的话，那些超过最大字符长度的代码行必须按照第4.5小节（换行）中说明的那样进行换行。
+各个项目可以自由选择是采用80还是100作为每行最大的字符长度。除非遇到下面列出的情形，否则的话，那些超过最大字符长度的代码行必须按照第4.5小节（换行）中说明的那样进行换行。
 
-Exceptions:
 例外：
 
-Lines where obeying the column limit is not possible (for example, a long URL in Javadoc, or a long JSNI method reference).
-不可能遵循最大字符长度限制的行（比如，javadoc中很长的URL，或者一个很长的JSNI方法引用）
-package and import statements (see Sections 3.2 Package statement and 3.3 Import statements).
-package和import语句（见3.2小节中的Package语句和3.3小节的Import语句
-Command lines in a comment that may be cut-and-pasted into a shell.
-注释中可能会被复制-粘贴到shell中的命令行。
-4.5 Line-wrapping
-4.5 换行
+ - 不可能遵循最大字符长度限制的行（比如，javadoc中很长的URL，或者一个很长的JSNI方法引用）
+ - package和import语句（见3.2小节中的Package语句和3.3小节的Import语句）
+ - 注释中包含可能会被复制-粘贴到shell中的命令行指令的行。
+
+###4.5 换行
 
 Terminology Note: When code that might otherwise legally occupy a single line is divided into multiple lines, typically to avoid overflowing the column limit, this activity is called line-wrapping.
 术语说明：当
@@ -701,3 +663,9 @@ Important: it is not appropriate to cite this exception to justify omitting rele
 
 Javadoc is not always present on a method that overrides a supertype method.
 对于那些将父类方法进行重载的方法，Javadoc并不总是需要提供的。
+
+参考来源：
+[@囧虎张建伟的博客][1]
+
+
+  [1]: http://www.blogjava.net/zh-weir/archive/2014/02/08/409608.html
