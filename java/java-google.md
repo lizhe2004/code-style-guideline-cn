@@ -213,58 +213,46 @@ Projects are free to choose a column limit of either 80 or 100 characters. Excep
 
 ###4.6 空白
 
-4.6.1 Vertical Whitespace
 ####4.6.1 垂直空白
-A single blank line appears:
-单个空行出现在：
+出现单个空行的位置有：
+ 1. 某个类的那些相邻的成员（或者初始化器initializer）：字段、构造器、方法、嵌套类、静态初始化器以及实例初始化器之间。
+ - 例外：两个相邻的字段(中间没有其他代码)之间的空行是可选的.这种空行主要用于按照需要对字段进行逻辑分组。
+ 2. 在方法内部，可以按照需要用于对语句进行逻辑分组。
+ 3. 第一个方法的前面和最后一个方法的后面的空行是可选的（既不鼓励也不反对）。
+ 4. 根据文档中其他部分的需要进行添加（比如3.3的Import语句小节）
+ 5. 
+多个连续的空行是允许的，但是永远不会进行要求（或者鼓励）这么做。
 
-Between consecutive members (or initializers) of a class: fields, constructors, methods, nested classes, static initializers, instance initializers.
-某个类的那些相连的成员（或者初始化器initializer）：字段、构造器、方法、嵌套类、静态初始化器以及实例初始化器之间。
-Exception: A blank line between two consecutive fields (having no other code between them) is optional. Such blank lines are used as needed to create logical groupings of fields.
-例外：两个相连的字段(中间没有其他代码)之间的空行是可选的.这种空行主要用于按照需要对字段进行逻辑分组。
-Within method bodies, as needed to create logical groupings of statements.
-Optionally before the first member or after the last member of the class (neither encouraged nor discouraged).
-在方法体内，可以按照需要用于对语句进行逻辑分组。
-第一个方法的前面和最后一个方法的后面的空行是可选的（既不鼓励也不反对）。
-
-As required by other sections of this document (such as Section 3.3, Import statements).
-根据文档中其他部分的需要进行添加（比如3.3的Import指令小节）
-Multiple consecutive blank lines are permitted, but never required (or encouraged).
-多个连续的空行是允许的，但是永远不会进行要求（或者鼓励）。
-4.6.2 Horizontal whitespace
 ####4.6.2 水平空白
-Beyond where required by the language or other style rules, and apart from literals, comments and Javadoc, a single ASCII space also appears in the following places only.
-除了语言或者其他编码规范的要求以外，不把文字、注释和Javadoc算在内的话，ASCII空格只可以出现在如下地方.
-Separating any reserved word, such as if, for or catch, from an open parenthesis (() that follows it on that line
-将同一行中的保留字（比如if、for或者catch）与后面的左括号（（）分开
-Separating any reserved word, such as else or catch, from a closing curly brace  that precedes it on that line
-将同一行中的保留字（比如else或者catch）与前面的右花括号(})分开
 
-Before any open curly brace ({), with two exceptions:
-做花括号的前面, 下面两种情况下例外：
+除了语言或者其他编码规范的要求以外，并且不把文字、注释和Javadoc算在内的话，ASCII空格只可以出现在如下地方：
+ 
+ 1. 将同一行中的保留字（比如`if`、`for`或者`catch`）与后面的左括号（`（`）用空格分开。
 
-@SomeAnnotation({a, b}) (不需要空格)
-String[][] x = {{"foo"}}; (在`{` `{`之间不需要空格, by item 8 below)
+ 2. 将同一行中的保留字（比如`else`或者`catch`）与前面的右花括号(`}`)用空格分开。
 
-On both sides of any binary or ternary operator. This also applies to the following "operator-like" symbols:
-两元和三元运算符的两侧。这也同样适用于和运算符类似的符号。
-the ampersand in a conjunctive type bound: <T extends Foo & Bar>
-the pipe for a catch block that handles multiple exceptions: catch (FooException | BarException e)
-the colon (:) in an enhanced for ("foreach") statement
-After ,:; or the closing parenthesis ()) of a cast
-On both sides of the double slash (//) that begins an end-of-line comment. Here, multiple spaces are allowed, but not required.
-Between the type and variable of a declaration: List<String> list
-Optional just inside both braces of an array initializer
+ 3. 左花括号的前面添加空格。只有下面两种情况可以例外：
+  
+  - `@SomeAnnotation({a, b})` (不需要空格)
+  - `String[][] x = {{"foo"}}; `(在`{{`之间不需要空格, by item 8 below)
+ 
+ 4. 两元和三元运算符的两侧要使用空格（比如 `+`、`-`、`&`、`=`、`a > b ? True : False`）。这也同样适用于和运算符类似的符号。
+ - the ampersand in a conjunctive type bound: <T extends Foo & Bar>
+ - the pipe for a catch block that handles multiple exceptions: catch (FooException | BarException e)
+ - the colon (:) in an enhanced for ("foreach") statement
+ 5. After ,:; or the closing parenthesis ()) of a cast
+ 6. On both sides of the double slash (//) that begins an end-of-line comment. Here, multiple spaces are allowed, but not required.
+ 7. Between the type and variable of a declaration: List<String> list
+ 8. Optional just inside both braces of an array initializer
 new int[] {5, 6} and new int[] { 5, 6 } are both valid
-Note: This rule never requires or forbids additional space at the start or end of a line, only interior space.
+ - Note: This rule never requires or forbids additional space at the start or end of a line, only interior space.
 
-4.6.3 Horizontal alignment: never required
 ####4.6.3 水平对齐：不需要
 Terminology Note: Horizontal alignment is the practice of adding a variable number of additional spaces in your code with the goal of making certain tokens appear directly below certain other tokens on previous lines.
 术语说明：水平对齐
-This practice is permitted, but is never required by Google Style. It is not even required to maintain horizontal alignment in places where it was already used.
+
 这种方式是允许的，但是Google编码风格并不会对此进行要求。甚至于不要求在那些已经采用了这种方式的地方来继续保持这种水平对齐。
-Here is an example without alignment, then using alignment:
+
 下面分别是没有采用对齐和采用了对齐的例子：
 ```
 private int x; // this is fine
@@ -275,7 +263,7 @@ private int   x;      // permitted, but future edits
 private Color color;  // may leave it unaligned
 ```
 Tip: Alignment can aid readability, but it creates problems for future maintenance. Consider a future change that needs to touch just one line. This change may leave the formerly-pleasing formatting mangled, and that is allowed. More often it prompts the coder (perhaps you) to adjust whitespace on nearby lines as well, possibly triggering a cascading series of reformattings. That one-line change now has a "blast radius." This can at worst result in pointless busywork, but at best it still corrupts version history information, slows down reviewers and exacerbates merge conflicts.
-小提示：对齐能够对可读性有所帮助，但是它为将来的维护制造了麻烦。考虑一下，未来有一处改动值需要影响一行。这一改动可能使得之前格式化好的代码被破坏掉，并且这是允许的。经常，它会提示写代码的人（可能是你自己）来调整相邻行的空格，而这回触发一连串的重新格式化。
+小提示：对齐能够对可读性有所帮助，但是它为将来的维护制造了麻烦。考虑一下，未来有一处只需要影响一行的改动。这一改动可能使得之前格式化好的代码被破坏掉，并且这是允许的。经常，它会提示写代码的人（可能是你自己）来调整相邻行的空格，而这回触发一连串的重新格式化。
 
 4.7 Grouping parentheses: recommended
 ###4.7 分组圆括号：推荐
