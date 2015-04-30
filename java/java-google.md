@@ -236,22 +236,25 @@ Projects are free to choose a column limit of either 80 or 100 characters. Excep
   - `@SomeAnnotation({a, b})` (不需要空格)
   - `String[][] x = {{"foo"}}; `(在`{{`之间不需要空格, by item 8 below)
  
- 4. 两元和三元运算符的两侧要使用空格（比如 `+`、`-`、`&`、`=`、`a > b ? True : False`）。这也同样适用于和运算符类似的符号。
- - the ampersand in a conjunctive type bound: <T extends Foo & Bar>
- - the pipe for a catch block that handles multiple exceptions: catch (FooException | BarException e)
- - the colon (:) in an enhanced for ("foreach") statement
- 5. After ,:; or the closing parenthesis ()) of a cast
- 6. On both sides of the double slash (//) that begins an end-of-line comment. Here, multiple spaces are allowed, but not required.
- 7. Between the type and variable of a declaration: List<String> list
+ 4. 两元和三元运算符的两侧要使用空格（比如 `+`、`-`、`&`、`=`、`a > b ? True : False`）。这也同样适用于和运算符类似的符号：
+ 
+ - 在java泛型编程中的类型边界中的&符号：`<T extends Foo & Bar>`
+ 
+ -  `catch`代码块中用于处理多种异常的竖杠`|`符号。 `catch (FooException | BarException e)`
+ -  加强版的for语句（"`foreach`"）中的冒号(`:`）。
+ 5. `,`、`:`、`;`以及右括号（`）`）的后面
+ 6. 两个左斜杠(`//`)的两侧使用空格，用来开始该行的注释。在这里，多个空格也是可以的，但是不做强制要求。
+ 7. 在声明语句的类型名和变量之间要使用空格: ` List<String> list` 
  8. Optional just inside both braces of an array initializer
-new int[] {5, 6} and new int[] { 5, 6 } are both valid
- - Note: This rule never requires or forbids additional space at the start or end of a line, only interior space.
+ 8.在数组初始化中大括号里面的空格是可选的。 
+ - `new int[] {5, 6}`和`new int[] { 5, 6 }`都是合法的。
+>注意： 本规定并不对一行的开始和末尾的空格做出要求和禁止，而只是针对代码内部的空格。
 
 ####4.6.3 水平对齐：不需要
 Terminology Note: Horizontal alignment is the practice of adding a variable number of additional spaces in your code with the goal of making certain tokens appear directly below certain other tokens on previous lines.
-术语说明：水平对齐
+术语说明：水平对齐是一种在你的代码中间加入不定数量的额外空格来让本行的某些符号直接出现在上一行的某些符号的下面的实践方式。
 
-这种方式是允许的，但是Google编码风格并不会对此进行要求。甚至于不要求在那些已经采用了这种方式的地方来继续保持这种水平对齐。
+这种方式是可以接受的，但是Google编码风格并不会对此进行要求。Google甚至于不要求在那些已经采用了这种方式的地方来继续保持这种水平对齐。
 
 下面分别是没有采用对齐和采用了对齐的例子：
 ```
@@ -262,40 +265,34 @@ private Color color; // this too
 private int   x;      // permitted, but future edits
 private Color color;  // may leave it unaligned
 ```
-Tip: Alignment can aid readability, but it creates problems for future maintenance. Consider a future change that needs to touch just one line. This change may leave the formerly-pleasing formatting mangled, and that is allowed. More often it prompts the coder (perhaps you) to adjust whitespace on nearby lines as well, possibly triggering a cascading series of reformattings. That one-line change now has a "blast radius." This can at worst result in pointless busywork, but at best it still corrupts version history information, slows down reviewers and exacerbates merge conflicts.
-小提示：对齐能够对可读性有所帮助，但是它为将来的维护制造了麻烦。考虑一下，未来有一处只需要影响一行的改动。这一改动可能使得之前格式化好的代码被破坏掉，并且这是允许的。经常，它会提示写代码的人（可能是你自己）来调整相邻行的空格，而这回触发一连串的重新格式化。
 
-4.7 Grouping parentheses: recommended
+>小提示：对齐能够增加代码的可读性，但是它也为将来的维护制造了麻烦。设想一下，未来有一处改动本来只需要影响一行。而这一改动可能使得之前格式化好的代码被破坏掉，并且这是允许的。经常，它会提示写代码的人（可能是你自己）来调整相邻行的空格，而这会触发一连串的重新格式化。那最开始的一行改动现在有了一个“爆炸半径”。极端情况下，这可能造成大量无用的工作，就算是在最好的情况下，这也会破坏版本历史信息，减慢代码审查人员的review速度，并且会造成更多的merge冲突。
+
 ###4.7 分组圆括号：推荐
-Optional grouping parentheses are omitted only when author and reviewer agree that there is no reasonable chance the code will be misinterpreted without them, nor would they have made the code easier to read. It is not reasonable to assume that every reader has the entire Java operator precedence table memorized.
-只有当去掉分组括号，代码也没有机会被解释错误；而有了分组括号，代码也不会更加易读；并且作者和评审人员认可这种说法的时候，可选的分组括号才可以被省略。我们没有理由来假设所有读者都将整个Java操作符优先级表记得清清楚楚。
-4.8 Specific constructs
-###4.8 具体结构
-4.8.1 Enum classes
-####4.8.1 枚举类
-After each comma that follows an enum constant, a line-break is optional.
-在每个枚举常量后面要跟上一个逗号， 换行与否是可选的。
-An enum class with no methods and no documentation on its constants may optionally be formatted as if it were an array initializer (see Section 4.8.3.1 on array initializers).
-对于那些没有方法并且其枚举常量没有文档注释的枚举类可以根据需要选择像数组初始化那样进行格式化（见4.8.3.1小节，数组初始化）
 
+只有当作者和评审人员一致认为：去掉分组括号代码也不会被解释错误；而有了分组括号代码也不会更加易读；的时候，可选的分组括号才可以被省略。我们没有理由来假设所有读者都将整个Java操作符优先级表记得清清楚楚。
+###4.8 具体结构
+
+####4.8.1 枚举类
+在每个枚举常量后面的逗号的后面， 换行与否都是可以的。
+
+对于那些没有方法并且其枚举常量没有文档注释的枚举类可以根据需要选择像数组初始化那样进行格式化（见4.8.3.1小节，数组初始化）
+```java
 private enum Suit { CLUBS, HEARTS, SPADES, DIAMONDS }
 Since enum classes are classes, all other rules for formatting classes apply.
+```
 
-4.8.2 Variable declarations
 ####4.8.2 变量声明
-4.8.2.1 One variable per declaration
+
 #####4.8.2.1 每次声明一个变量
-Every variable declaration (field or local) declares only one variable: declarations such as int a, b; are not used.
-每行变量声明（字段或者局部变量）都只声明一个变量：不要使用像 `int a, b;`这样的变量。
-4.8.2.2 Declared when needed, initialized as soon as possible
+每行变量声明（字段或者局部变量）都只声明一个变量：不要使用像 `int a, b;`这样的变量声明。
+
 #####4.8.2.2 需要的时候再声明，而初始化要尽可能早
-Local variables are not habitually declared at the start of their containing block or block-like construct. Instead, local variables are declared close to the point they are first used (within reason), to minimize their scope. Local variable declarations typically have initializers, or are initialized immediately after declaration.
-不要像已经习惯的那样在所包含的代码块或者块状结构的开头部分声明局部变量。相反，局部变量应该在最靠近其首次使用的地方进行声明以将其作用域最小化局部变量，通常在声明的时候就进行初始化了，或者在声明之后立刻进行初始化。
-4.8.3 Arrays
+
+不要像已经习惯的那样在所包含的代码块或者块状结构的开头部分声明局部变量。相反，局部变量应该在最靠近其首次使用的地方进行声明以将其作用域最小化。局部变量通常在声明的时候就进行初始化了，或者在声明之后立刻进行初始化。
 ####4.8.3 数组
-4.8.3.1 Array initializers: can be "block-like"
+
 #####4.8.3.1 数组初始化：可以是“块状形式”的。
-Any array initializer may optionally be formatted as if it were a "block-like construct." For example, the following are all valid (not an exhaustive list):
 所有的数组初始化都可以根据情况格式化成“块状结构”。下面这些样式都是合法的（并没有详尽地列出全部样式）：
 ```
 new int[] {           new int[] {
@@ -308,26 +305,22 @@ new int[] {             3,
 }                     new int[]
                           {0, 1, 2, 3}
 ```
-4.8.3.2 No C-style array declarations
+
 #####4.8.3.2 不要使用C语言风格的数组声明
-The square brackets form a part of the type, not the variable: String[] args, not String args[].
 方括号是类型的一部分，而不是变量的一部分，`String[] args`是正确的，不要使用`String args[]`。
 
-4.8.4 Switch statements
 ####4.8.4 Switch语句
 Terminology Note: Inside the braces of a switch block are one or more statement groups. Each statement group consists of one or more switch labels (either case FOO: or default:), followed by one or more statements.
-术语说明：在switch代码块的花括号中的是一组或多组的代码。每组代码包含一个或者多个switch标签（要么是`case FOO:`，要么是`default:`），后面跟着一条或者多条语句。
-4.8.4.1 Indentation
-#####4.8.4.1 缩进
-As with any other block, the contents of a switch block are indented +2.
-和其他代码块一样，switch代码块的内容也是缩进2个字符。
-After a switch label, a newline appears, and the indentation level is increased +2, exactly as if a block were being opened. The following switch label returns to the previous indentation level, as if a block had been closed.
-在switch标签后面会另起一行，如果代码块还没结束，缩进层级加2，。如果switch代码块已经结束了，后面的内容会返回到之前的缩进层级。
+术语说明：在switch代码段的花括号中的是一组或多组的代码。每组代码包含一个或者多个switch标签（要么是`case FOO:`，要么是`default:`），后面跟着一条或者多条语句。
 
-4.8.4.2 Fall-through: commented
-#####4.8.4.2 落空处理：注释
-Within a switch block, each statement group either terminates abruptly (with a break, continue, return or thrown exception), or is marked with a comment to indicate that execution will or might continue into the next statement group. Any comment that communicates the idea of fall-through is sufficient (typically // fall through). This special comment is not required in the last statement group of the switch block. Example:
-在一个switch代码块中，每组代码要么是突然中止的（使用`break`、`continue`、`return`或者抛出异常），要么是用注释来进行标记来表明代码可以执行到下一组代码。任何能够表示出落空处理的意思的注释都是足够的（通常是`// fall through`）。switch代码块中的最后一组语句并不需要这个特殊的注释。比如：
+#####4.8.4.1 缩进
+
+和其他代码块一样，switch代码块的内容也是缩进2个字符。
+在switch标签后面会另起一行，如果代码块还没结束，缩进层级加2，。如果switch代码块已经结束了，后面的switch标签会返回到之前的缩进层级。
+
+#####4.8.4.2 落空处理（Fall-through）：注释
+
+在一个switch代码块中，每组代码要么会突然结束（使用`break`、`continue`、`return`或者抛出异常），要么会使用注释来进行标记以表明代码可以继续执行到下一组代码。任何能够表达出代码会继续执行到下一组的含义的注释都是满足要求的（通常是`// fall through`）。switch代码块中的最后一组语句并不需要这个特殊的注释。比如：
 ```
 switch (input) {
   case 1:
@@ -341,12 +334,10 @@ switch (input) {
     handleLargeNumber(input);
 }
 ```
-4.8.4.3 The default case is present
+
 #####4.8.4.3 列出default情况
-Each switch statement includes a default statement group, even if it contains no code.
 每个switch语句都要包含一组default语句，即便它不包含任何代码。
 
-4.8.5 Annotations
 ####4.8.5 注解
 Annotations applying to a class, method or constructor appear immediately after the documentation block, and each annotation is listed on a line of its own (that is, one annotation per line). These line breaks do not constitute line-wrapping (Section 4.5, Line-wrapping), so the indentation level is not increased. Example:
 应用到类、方法或者构造器上的注解是紧接着文档块展示的，每个注解占据一行。它们之间的换行符并不构成自动换行（4.5小节，自动换行）。所以缩进层级并不会增加。比如：
