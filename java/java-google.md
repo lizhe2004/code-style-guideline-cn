@@ -329,7 +329,7 @@ switch (input) {
 每个switch语句都要包含一组default语句，即便它不包含任何代码。
 
 ####4.8.5 注解
-Annotations applying to a class, method or constructor appear immediately after the documentation block, and each annotation is listed on a line of its own (that is, one annotation per line). These line breaks do not constitute line-wrapping (Section 4.5, Line-wrapping), so the indentation level is not increased. Example:
+
 作用到类、方法或者构造器上的注解是紧接着列在代码块旁边的，每条注解占一行（也就是每行一条注解）。它们之间的换行符并不构成断行（4.5小节，断行），所以并不会增加缩进层级。比如：
 ```
 @Override
@@ -341,86 +341,75 @@ public String getNameIfPresent() { ... }
 @Override public int hashCode() { ... }
 ```
 作用到字段的注解也可以紧跟着代码块一起排列，但是在这种情况下，多个注解（也有可能是有参数的）是可以列在同一行的；比如：
-
 ```
 @Partial @Mock DataLoader loader;
 ```
-There are no specific rules for formatting parameter and local variable annotations.
 对于参数和局部变量的注解的格式，并没有具体的规范来进行要求。
-4.8.6 Comments
 #### 4.8.6 注释
-4.8.6.1 Block comment style
 #####4.8.6.1 块注释样式
-Block comments are indented at the same level as the surrounding code. They may be in /* ... */ style or // ... style. For multi-line /* ... */ comments, subsequent lines must start with * aligned with the * on the previous line.
-块注释的缩进级别和它所包围的代码的缩进级别相同。它们可以采用 `/* ... */`样式，也可以采用`// ..`样式。对于多行的`/* ... */`注释，后面的注释行必须以*开头，*号要和上一行的*号对齐。
+
+块注释的缩进级别和它所包围的代码的缩进级别相同。它们可以采用 `/* ... */`样式，也可以采用`// ..`样式。对于多行的`/* ... */`注释，后面的注释行必须以`*`开头，`*`号要和上一行的`*`号对齐。
 ```
 /*
  * This is          // And so           /* Or you can
  * okay.            // is this.          * even do this. */
  */
 ```
-Comments are not enclosed in boxes drawn with asterisks or other characters.
-不能用由星号或者其他的符号来画出的方框来将注释包起来。
+不要用由星号或者其他的符号画出的方框来将注释围起来。
 
-Tip: When writing multi-line comments, use the /* ... */ style if you want automatic code formatters to re-wrap the lines when necessary (paragraph-style). Most formatters don't re-wrap lines in // ... style comment blocks.
-小提示： 当书写多行的注释时，如果你想要用自动代码格式化工具在必要的时候（比如分段样式）来将这些注释重新组织换行时，你要使用`/* ... */`样式。大部分格式化工具并不能将`// ...`样式的注释块中的内容重新组织进行换行。
-4.8.7 Modifiers
+
+>小提示： 当书写多行的注释时，如果你想要在必要的时候用自动化的代码格式化工具来将这些注释重新组织进行断行（段落样式）时，你要使用`/* ... */`样式。大部分格式化工具并不能将`// ...`样式的注释块中的内容重新组织进行断行。
+
 #### 4.8.7 修饰符
-Class and member modifiers, when present, appear in the order recommended by the Java Language Specification:
+
 当使用类和成员修饰符时，它们要按照Java语言规范中建议的顺序来排列：
+```java
+public protected private abstract static final transient volatile synchronized native strictfp
+```
+ 
+####4.8.8 数字值
+ 
+长整型的数字值要使用大写字母L作为后缀，永远不要使用小写字母（来避免和数字1产生混淆）。比如，使用`3000000000L`而不要使用`3000000000l`。
 
-`public`、`protected`、`private`、`abstract`、`static`、`final`、`transient` 、`volatile`、`synchronized`、`native`、`strictfp`。
-4.8.8 Numeric Literals
-####4.8.8 数值
-long-valued integer literals use an uppercase L suffix, never lowercase (to avoid confusion with the digit 1). For example, 3000000000L rather than 3000000000l.
-长整型的字面值要使用大写字母L作为后缀，永远不要使用小写字母（来避免和数字1产生混淆）。比如，使用`3000000000L`而不要使用`3000000000l`。
-
-5 Naming
+ 
 ##5 命名
 
-
-5.1 Rules common to all identifiers
 ###5.1 适用于所有标识符的通用规范
 
-Identifiers use only ASCII letters and digits, and in two cases noted below, underscores. Thus each valid identifier name is matched by the regular expression \w+ .
-标识符只能使用ASCII字母和数字，。 所以每个合法的标识符名字都能与正则表达式`\w+`相匹配。
-In Google Style special prefixes or suffixes, like those seen in the examples name_, mName, s_name and kName, are not used.
-在Google的风格规范中，像这些例子`name_`、`mName`、`s_name`和`kName`里特定的前缀或者后缀是不会使用的。
+标识符只能使用大小写形式的ASCII字母和数字以及下划线。所以每个合法的标识符名字都能与正则表达式`\w+`相匹配。
 
-5.2 Rules by identifier type
+在Google的风格规范中，是不会使用像这些例子`name_`、`mName`、`s_name`和`kName`里特定的前缀或者后缀的。
+
 ###5.2 标识符规范
 
-5.2.1 Package names
 ####5.2.1包名
 
-Package names are all lowercase, with consecutive words simply concatenated together (no underscores). For example, com.example.deepspace, not com.example.deepSpace or com.example.deep_space.
-包名是全部小写的，由连贯的单词简单地串在一起（没有下划线）。比如`example`, `com.example.deepspace`,而不是`com.example.deepSpace`或`com.example.deep_space`这种。
-
-5.2.2 Class names
+ 
+包名是全部小写的，由连贯的单词简单地串在一起（没有下划线）。比如`example`, `com.example.deepspace`,而不是`com.example.deepSpace`或`com.example.deep_space`。
+ 
 ####5.2.2 类名
-Class names are written in UpperCamelCase.
-类名是才用首字母大写的驼峰式（UpperCamelCase）来定义的。
-Class names are typically nouns or noun phrases. For example, Character or ImmutableList. Interface names may also be nouns or noun phrases (for example, List), but may sometimes be adjectives or adjective phrases instead (for example, Readable).
-类名是标准的名词或者名词短语。比如`Character`或者`ImmutableList`。接口名也可以是名词或者名词短语（比如`List`）,但是有时候，它也可以是形容词或者形容词短语（比如`Readable`）
+ 
+类名是使用首字母大写的驼峰式（UpperCamelCase）来定义的。
+ 
+类名通常都是名词或者名词短语。比如`Character`或者`ImmutableList`。接口名也可以是名词或者名词短语（比如`List`）,但是有时候，它也可以是形容词或者形容词短语（比如`Readable`）
 
-There are no specific rules or even well-established conventions for naming annotation types.
-并不存在专门的规则或者完善的约定来用于给注解类型进行命名。
-Test classes are named starting with the name of the class they are testing, and ending with Test. For example, HashTest or HashIntegrationTest.
+对于给注解类型进行命名，则没有专门的规则或者完善的约定来进行要求。
+ 
 测试类的名字都是以所要测试的类的名字开头的，并且以Test结尾。比如`HashTest` 或者`HashIntegrationTest`。
-5.2.3 Method names
+ 
 ####5.2.3 方法名
-Method names are written in lowerCamelCase.
-方法名采用的是首字母消息的驼峰式（lowerCamelCase）的风格
-Method names are typically verbs or verb phrases. For example, sendMessage or stop.
+ 
+方法名采用的是首字母小写的驼峰式（lowerCamelCase）的风格。
+
 方法名通常是动词或者动词短语。比如`sendMessage`或者`stop`。
-Underscores may appear in JUnit test method names to separate logical components of the name. One typical pattern is test<MethodUnderTest>_<state>, for example testPop_emptyStack. There is no One Correct Way to name test methods.
-下划线可以出现在JUnit的测试方法名称中用于将测试方法的名称的各逻辑部分进行区分。 一种典型的模式就是`test<MethodUnderTest>_<state>`， 比如`testPop_emptyStack`。对于测试方法的命名，并不存在一种所谓的“正确”方式。
-5.2.4 Constant names
+ 
+下划线可以出现在JUnit的测试方法名称中，用于将测试方法的名称的各逻辑部分分开。 一种典型的模式就是`test<MethodUnderTest>_<state>`， 比如`testPop_emptyStack`。对于测试方法的命名，并不存在一种所谓的绝对正确的方式。
+ 
 ####5.2.4 常量名
-Constant names use CONSTANT_CASE: all uppercase letters, with words separated by underscores. But what is a constant, exactly?
+
 常量名使用`CONSTANT_CASE`的格式：全大写，词与词之间采用下划线进行分割。但是到底什么是常量呢？
-Every constant is a static final field, but not all static final fields are constants. Before choosing constant case, consider whether the field really feels like a constant. For example, if any of that instance's observable state can change, it is almost certainly not a constant. Merely intending to never mutate the object is generally not enough. Examples:
-每个常量都是一个静态final字段，但是并不是所有的静态final字段都是常量。在选择常量条款来命名时，要考虑这个字段是否真的是一个常量。比如，一个实例的只要有一项状态信息对外可见并且能够发生变化，那么几乎可以肯定它不是一个常量。仅仅解释说这个对象永远不会发生变化通常是不够的。比如：
+ 
+每个常量都是一个静态final字段，但是并不是所有的静态final字段都是常量。在选择使用常量命名规则时，要考虑这个字段是否真的是一个常量。比如，一个实例只要有一项状态信息对外可见并且能够发生变化，那么几乎可以肯定它不是一个常量。仅仅解释说这个对象永远不会发生变化通常是不够的。比如：
 ```
 // Constants
 static final int NUMBER = 5;
@@ -437,39 +426,36 @@ static final ImmutableSet<SomeMutableType> mutableElements = ImmutableSet.of(mut
 static final Logger logger = Logger.getLogger(MyClass.getName());
 static final String[] nonEmptyArray = {"these", "can", "change"};
 ```
-These names are typically nouns or noun phrases.
+ 
 它们的名称通常都是名词或者名词短语。
-5.2.5 Non-constant field names
+ 
 ####5.2.5 非常量字段的名称
-Non-constant field names (static or otherwise) are written in lowerCamelCase.
+ 
 非常量字段的名称（静态或者非静态变量）是采用首字母小写的驼峰式的风格来命名的。
-These names are typically nouns or noun phrases. For example, computedValues or index.
+ 
 这些名称一般都是名词或者名词短语，比如`computedValues `或者`index`。
-
-5.2.6 Parameter names
+ 
 ####5.2.6 参数名
-
-Parameter names are written in lowerCamelCase.
-参数名是采用首字母小写的驼峰式的风格来命名。
-One-character parameter names should be avoided.
+ 
+参数名是采用首字母小写的驼峰式的风格来命名的。
+ 
 应该避免使用只有一个字符的参数。
-5.2.7 Local variable names
+ 
 ####5.2.7 局部变量名
-Local variable names are written in lowerCamelCase, and can be abbreviated more liberally than other types of names.
+ 
 局部变量的名字采用的是首字母小写的驼峰式的风格，相对于其他类型的名字，对局部变量的名字进行缩写的空间更大一些。
-However, one-character names should be avoided, except for temporary and looping variables.
+ 
 然而，单字符的名字还是要避免的，除非是用于临时变量和循环变量中。
-Even when final and immutable, local variables are not considered to be constants, and should not be styled as constants.
+ 
 即便局部变量是final和immutable的，它也不能被看做是常量，也不应该使用常量名字的样式。
-5.2.8 Type variable names
+ 
 ####5.2.8 类型变量名
-Each type variable is named in one of two styles:
+ 
 任意一个类型变量都应该采用下面两种样式中的一种来进行命名。
-A single capital letter, optionally followed by a single numeral (such as E, T, X, T2)
-单个的大写字母，视情况需要后面可以添加一个数字（比如`E`、`T`、`X`、`T2`）
-A name in the form used for classes (see Section 5.2.2, Class names), followed by the capital letter T (examples: RequestT, FooBarT).
-以所使用的类的形式来命名（见5.2.2小节，类名），后面跟上一个大写字母T(比如`RequestT`、`FooBarT`)
-5.3 Camel case: defined
+ - 单个大写字母，视情况需要后面可以添加一个数字（比如`E`、`T`、`X`、`T2`）
+ 
+ - 以所使用的类的形式来命名（见5.2.2小节，类名），后面跟上一个大写字母T(比如`RequestT`、`FooBarT`)
+ 
 ###5.3 驼峰式命名法：
 Sometimes there is more than one reasonable way to convert an English phrase into camel case, such as when acronyms or unusual constructs like "IPv6" or "iOS" are present. To improve predictability, Google Style specifies the following (nearly) deterministic scheme.
 有时候，有多种合理的方式来将一个英文短语转换成驼峰式的拼写样式，比如当类似于`“IPv6”`或者`“iOS”`这样的首字母缩写或者独特的语法结构出现时。为了提高可预测性，Google风格规范指定了如下明确的方案。
