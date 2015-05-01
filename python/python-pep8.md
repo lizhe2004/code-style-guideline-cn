@@ -1,15 +1,17 @@
-#PEP 8 - Style Guide for Python Code
+ 
 #PEP 8——Python编码风格指南
+标签（空格分隔）： Python PEP8 编码规范
+---
 [TOC]
-
-Introduction
+ 
 #介绍
 This document gives coding conventions for the Python code comprising the standard library in the main Python distribution. Please see the companion informational PEP describing style guidelines for the C code in the C implementation of Python [1] .
-本文提供的编码规范适用于Python主发行版中的标准库的那些代码。对于
+本文提供的编码规范用于Python主发行版中的标准库的那些代码。对于Python的C语言实现中的C代码，请参考其他的PEP。
+
 This document and PEP 257 (Docstring Conventions) were adapted from Guido's original Python Style Guide essay, with some additions from Barry's style guide [2] .
-
+本文档和PEP 257(Docstring约定)改编自Guido的早起的Python风格指南文章，并且添加了一些Barry的风格指南的内容。
 This style guide evolves over time as additional conventions are identified and past conventions are rendered obsolete by changes in the language itself.
-
+本风格指南会随着时间不断演化，因为会有新的约定被大家所认同，而又有一些老的约定会由于语言本身的改变而逐渐被废弃。
 Many projects have their own coding style guidelines. In the event of any conflicts, such project-specific guides take precedence for that project.
 
 A Foolish Consistency is the Hobgoblin of Little Minds
@@ -34,7 +36,7 @@ When the code needs to remain compatible with older versions of Python that don'
 Use 4 spaces per indentation level.
 每一级缩进使用4个空格。
 Continuation lines should align wrapped elements either vertically using Python's implicit line joining inside parentheses, brackets and braces, or using a hanging indent  . When using a hanging indent the following considerations should be applied; there should be no arguments on the first line and further indentation should be used to clearly distinguish itself as a continuation line.
-续行应该将换行的元素垂直对齐，可以使用Python的圆括号、方括号、花括号中的隐式的连接符，也可以使用悬挂式缩进[5]。当采用悬挂式缩进方式时，应该符合下列考虑条件：第一行不应该有参数，而且后面采用的缩进应该能够清楚无误地将其作为后续行从其他行中区分出来。
+续行应该将换行的元素垂直对齐，可以使用Python的圆括号、方括号、花括号中的隐式的连接符，也可以使用悬挂式缩进[5]。当采用悬挂式缩进方式时，应该符合下列考虑条件：第一行不应该有参数，而且应该能够清楚无误地将后面采用缩进的行作为后续行从其他行中区分出来。
 Yes:
 ```python
 # Aligned with opening delimiter.
@@ -256,37 +258,44 @@ You should put a blank line between each group of imports.
 Put any relevant __all__ specification after the imports.
 在import语句后面可以放入任何相关的__all__声明。
 Absolute imports are recommended, as they are usually more readable and tend to be better behaved (or at least give better error messages) if the import system is incorrectly configured (such as when a directory inside a package ends up on sys.path ):
-绝对的import
+建议使用绝对的import，因为这种方式通常可读性更强，并且在import系统配置错误（比如 当某个包里面的路径没有在sys.path出现）的情况下，表现往往会更加好一些。
 ```python
 import mypkg.sibling
 from mypkg import sibling
 from mypkg.sibling import example
 ```
 However, explicit relative imports are an acceptable alternative to absolute imports, especially when dealing with complex package layouts where using absolute imports would be unnecessarily verbose:
+然而，相对于绝对import，显式的相对import也是一种可以接受的选择，特别是当处理复杂的包结构，而使用绝对import会显得特别繁琐和啰嗦的时候。
 ```python
 from . import sibling
 from .sibling import example
 ```
 Standard library code should avoid complex package layouts and always use absolute imports.
+标准库代码应该避免复杂的包结构，并且始终使用绝对import。
 
 Implicit relative imports should never be used and have been removed in Python 3.
+不能使用隐式的相对import，并且这种隐式的相对import已经在Python 3中移掉了。
 
 When importing a class from a class-containing module, it's usually okay to spell this:
+当从某个包含类的模块中导入类时，下面这种拼写方式是可以的：
 ```python
 from myclass import MyClass
 from foo.bar.yourclass import YourClass
 ```
 If this spelling causes local name clashes, then spell them
+如果这种方式导致本地命名冲突，就要用下面这种方式：
 ```python
 import myclass
 import foo.bar.yourclass
 ```
 and use "myclass.MyClass" and "foo.bar.yourclass.YourClass".
+然后使用`"myclass.MyClass"` 和 `"foo.bar.yourclass.YourClass"`
 
 Wildcard imports ( from <module> import * ) should be avoided, as they make it unclear which names are present in the namespace, confusing both readers and many automated tools. There is one defensible use case for a wildcard import, which is to republish an internal interface as part of a public API (for example, overwriting a pure Python implementation of an interface with the definitions from an optional accelerator module and exactly which definitions will be overwritten isn't known in advance).
+应该避免使用通配符形式的import (`from <module> import *`)，因为  而让读者和许多自动化工具搞不清楚哪些名称在当前命名空间出现。有一种使用通配符形式的import的用例是情有可原的，那就是将某个内部接口重新发布为公开的API的一部分（比如，按照某个accelerator模块的定义将某个接口的纯Python实现进行重写，而并不能提前知道哪些接口将被重写）
 
 When republishing names this way, the guidelines below regarding public and internal interfaces still apply.
-
+当采用这种方式
 String Quotes
 In Python, single-quoted strings and double-quoted strings are the same. This PEP does not make a recommendation for this. Pick a rule and stick to it. When a string contains single or double quote characters, however, use the other one to avoid backslashes in the string. It improves readability.
 
@@ -878,3 +887,7 @@ Source: https://hg.python.org/peps/file/tip/pep-0008.txt
 
 致谢：
 本文参考了http://wiki.hiaero.net/doku.php?id=python:pep8一文特此表示感谢。
+
+
+
+
