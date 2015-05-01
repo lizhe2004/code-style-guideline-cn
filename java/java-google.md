@@ -225,7 +225,7 @@ void doNothing() {}
  3. 左花括号的前面添加空格。只有下面两种情况可以例外：
   
   - `@SomeAnnotation({a, b})` (不需要空格)
-  - `String[][] x = {{"foo"}}; `(在`{{`之间不需要空格, by item 8 below)
+  - `String[][] x = {{"foo"}}; `(在两个花括号之间不需要空格, by item 8 below)
  
  4. 两元和三元运算符的两侧要使用空格（比如 `+`、`-`、`&`、`=`、`a > b ? True : False`）。这也同样适用于和运算符类似的符号：
  
@@ -457,28 +457,29 @@ static final String[] nonEmptyArray = {"these", "can", "change"};
  - 以所使用的类的形式来命名（见5.2.2小节，类名），后面跟上一个大写字母T(比如`RequestT`、`FooBarT`)
  
 ###5.3 驼峰式命名法：
-Sometimes there is more than one reasonable way to convert an English phrase into camel case, such as when acronyms or unusual constructs like "IPv6" or "iOS" are present. To improve predictability, Google Style specifies the following (nearly) deterministic scheme.
-有时候，有多种合理的方式来将一个英文短语转换成驼峰式的拼写样式，比如当类似于`“IPv6”`或者`“iOS”`这样的首字母缩写或者独特的语法结构出现时。为了提高可预测性，Google风格规范指定了如下明确的方案。
+ 
+有时候，将一个英文短语转换成驼峰式的拼写样式有多重合理的方式，比如当出现类似于`“IPv6”`或者`“iOS”`这样的首字母缩写词或者独特的语法结构时，为了提高可预测性，Google风格规范指定了如下明确的方案。
 
 Beginning with the prose form of the name:
-
+首先列出没有处理过的原始的普通形式的名字：
 
 Convert the phrase to plain ASCII and remove any apostrophes. For example, "Müller's algorithm" might become "Muellers algorithm".
-将短语中的撇号（'）删除，将其他所有字符转换成纯ASCII码。比如`"Müller's algorithm"`会变成`"Müllers algorithm"`。
-Divide this result into words, splitting on spaces and any remaining punctuation (typically hyphens).
-将结果分割成一个个的单词，分割的依据是空格和所保留的任意标点符号（通常是连接符）。
-Recommended: if any word already has a conventional camel-case appearance in common usage, split this into its constituent parts (e.g., "AdWords" becomes "ad words"). Note that a word such as "iOS" is not really in camel case per se; it defies any convention, so this recommendation does not apply.
-建议：如果分割出来的单词已经是常用的约定好的驼峰式的拼写样式，那么就要将它再分割成更小的部分（比如将`AdWords`分成`ad words`）。需要注意的是，像`"iOS"`这样的单词并不是真正的驼峰式拼写，它不符合任何一种约定，所以该建议并不适用于它。
+ 
+ 1. 将短语中的撇号（'）删除，将其他所有字符转换成纯ASCII码。比如`"Müller's algorithm"`会变成`"Müllers algorithm"`。
+
+ 2. 将结果分割成一个个的单词，分割的依据是空格和所保留的任意标点符号（通常是连接符）。
+ - 建议：如果分割出来的单词已经是常用的约定好的驼峰式的拼写样式，那么就要将它再分割成更小的部分（比如将"AdWords"分成"ad words"）。需要注意的是，像`"iOS"`这样的单词并不是真正的驼峰式拼写，它不符合任何一种约定，所以该建议并不适用于它。
 Now lowercase everything (including acronyms), then uppercase only the first character of:
-现在将所有内容都进行小写（包括首字母缩写的词），然后只将首字母进行大写，最后，将所有的单词连接起来就构成了一个标识符。
-... each word, to yield upper camel case, or
-将每个单词的首字母都大写，就构成了首字母大写的驼峰式拼写。
-... each word except the first, to yield lower camel case
-将除了第一个单词之外的其他单词的首字母都大写，就构成了首字母小写的驼峰式拼写。
-Finally, join all the words into a single identifier.
+
+ 3. 现在，将所有单词都改成小写形式（包括首字母缩写的词），然后将首字母改成大写。
+ - 将每个单词的首字母都大写，就构成了首字母大写的驼峰式拼写。
+ - 将除了第一个单词之外的其他单词的首字母都大写，就构成了首字母小写的驼峰式拼写。
+
+ 4. 最后，将所有的单词连接起来就构成了一个标识符。
 Note that the casing of the original words is almost entirely disregarded.
-需要注意的是，原先那些单词的大小写几乎都完全被忽视了。
-Examples:
+ 需要注意的是，原先那些单词的大小写几乎都完全被忽略了。
+
+例子：
 
 |Prose form	         |Correct	     |Incorrect
 | -------------          |:-------------:    | -----:|
@@ -488,26 +489,26 @@ Examples:
 |"supports IPv6 on iOS?" |supportsIpv6OnIos  |supportsIPv6OnIOS
 |"YouTube importer"	 |YouTubeImporter    |YoutubeImporter*
 
-*Acceptable, but not recommended.
+
 *号表示可以接受，但是并不推荐采用
-Note: Some words are ambiguously hyphenated in the English language: for example "nonempty" and "non-empty" are both correct, so the method names checkNonempty and checkNonEmpty are likewise both correct.
-注意：在英文语言中，有一些单词之间是否使用连接符并不明确：比如`"nonempty"`和`"non-empty"`都是正确的，这样，方法名`checkNonempty`和`checkNonEmpty`同样也都是正确的。
-6 Programming Practices
+
+注意：在英语中，有一些单词之间是否使用连接符并不明确：比如`"nonempty"`和`"non-empty"`都是正确的，所以，方法名`checkNonempty`和`checkNonEmpty`也同样都是正确的。
+ 
 ##6 编程实践
-6.1 @Override: always used
-###6.1 @Override：一直都要使用
-A method is marked with the @Override annotation whenever it is legal. This includes a class method overriding a superclass method, a class method implementing an interface method, and an interface method respecifying a superinterface method.
-只要是符合语法的，就要使用@Override注解来将方法进行标记。这包括某个类的方法重载了其父类的方法、某个类方法实现了接口方法、某个接口方法重新声明负借口的方法。
-Exception:@Override may be omitted when the parent method is @Deprecated.
-例外：当父方法是@Deprecated的时候，可以将@Override省略掉。
-6.2 Caught exceptions: not ignored
+ 
+###6.1 @Override：要坚持使用
+ 
+只要是符合语法的，就要使用@Override注解来将方法进行标记。这包括某个类的方法重载了其父类的方法、某个类方法实现了接口方法、某个接口方法重新声明父接口的方法。
+ 
+例外：
+    当父方法是@Deprecated的时候，可以将@Override省略掉。
+ 
 ###6.2 捕获异常：不能忽略
 
-Except as noted below, it is very rarely correct to do nothing in response to a caught exception. (Typical responses are to log it, or if it is considered "impossible", rethrow it as an AssertionError.)
 
-除了下面列出的情况，对于捕获的异常无所作为不作响应很少是正确的。（标准的响应有进行日志记录，或者如果被认为是不可能发生的情况，应该将它作为`AssertionError`重新throw出去。）
-When it truly is appropriate to take no action whatsoever in a catch block, the reason this is justified is explained in a comment.
-如果确实不需要在catch代码块中做任何操作，就需要在注释中解释其正当理由。
+除了下面列出的情况，对于捕获的异常不作响应进行一些处理基本上可以确定是一个错误的选择。（通常的响应有进行日志记录，或者如果被认为是不可能发生的情况，应该将它作为`AssertionError`重新throw出去。）
+ 
+如果确实不需要在catch代码块中做任何操作，那就需要在注释中解释其正当理由。
 ```
 try {
   int i = Integer.parseInt(response);
@@ -518,7 +519,7 @@ try {
 return handleTextResponse(response);
 ```
 Exception: In tests, a caught exception may be ignored without comment if it is named expected. The following is a very common idiom for ensuring that the method under test does throw an exception of the expected type, so a comment is unnecessary here.
-例外：在测试中，如果捕获的异常是符合预期的，那么该异常就可以直接忽略而不需要添加注释。下面的例子是一个非常常见的用法：保证被测试的方法抛出一个与其类型的异常，这样就不需要注释了：
+例外：在测试中，如果捕获的异常是符合预期的，那么该异常就可以直接被忽略而不需要添加注释。下面的例子是一种非常常见的用法：保证被测试的方法抛出的异常是所预期的类型，这样就不需要注释了：
 ```
 try {
   emptyStack.pop();
@@ -526,28 +527,29 @@ try {
 } catch (NoSuchElementException expected) {
 }
 ```
-6.3 Static members: qualified using class
-###6.3 静态成员：限定为使用类来进行调用
-
-When a reference to a static class member must be qualified, it is qualified with that class's name, not with a reference or expression of that class's type.
-对静态类成员的引用必须进行限制，它必须只能由类的名称进行引用，不能是是类所属于的类型的引用或者表达式：
+ 
+###6.3 静态成员：限定为通过类来进行调用
+ 
+必须对静态类成员的引用进行限制，它必须只能通过类的名称来进行引用，不能通过类所属的类型的引用或者表达式来进行调用：
+```
 Foo aFoo = ...;
 Foo.aStaticMethod(); // good
 aFoo.aStaticMethod(); // bad
 somethingThatYieldsAFoo().aStaticMethod(); // very bad
-6.4 Finalizers: not used
+```
+ 
 ###6.4 Finalizers： 不要使用
-It is extremely rare to override Object.finalize.
+ 
 重载Object.finalize是极其罕见的。
-Tip: Don't do it. If you absolutely must, first read and understand Effective Java Item 7, "Avoid Finalizers," very carefully, and then don't do it.
-小提示： 不要使用。如果你绝对必须要使用的话，首先仔细地阅读和理解《Effective Java》一书的第7项，“Avoid Finalizers,”， 然后不要使用。
-7 Javadoc
+ 
+>小提示： 不要使用。如果你绝对必须要使用的话，首先仔细地阅读和理解《Effective Java》一书的第7项，“Avoid Finalizers,”， 然后不要使用。
+ 
 ##7 Javadoc
-7.1 Formatting
+ 
 ###7.1格式化
-7.1.1 General form
+ 
 ####7.1.1 一般格式
-The basic formatting of Javadoc blocks is as seen in this example:
+ 
 Javadoc块的基本格式正如你在下面的例子所看到的：
 ```
 /**
@@ -559,47 +561,44 @@ public int method(String p1) { ... }
 
 /** An especially short bit of Javadoc. */
 ```
-The basic form is always acceptable. The single-line form may be substituted when there are no at-clauses present, and the entirety of the Javadoc block (including comment markers) can fit on a single line.
-这种基本格式一直都是被认可的。当没有其他子项标记要记录并且将整个Javadoc块（包括注释标记）放到一行中就足够时，可以使用单行的形式来代替。
-7.1.2 Paragraphs
+ 
+这种基本样式始终都是合乎要求的。当没有其他子项@标记要列出来并且将整个Javadoc块（包括注释标记）放到一行中就足够时，可以使用单行的形式来代替。
+ 
 ####7.1.2 段落
-One blank line—that is, a line containing only the aligned leading asterisk (*)—appears between paragraphs, and before the group of "at-clauses" if present. Each paragraph but the first has <p> immediately before the first word, with no space after.
-位于“@标记”（如果有记录的话）之前的那些段落之间要有一个空行-也就是只包含着一个对齐的星号（*）的行。除了第一段之外的其他段落都需要在第一个单词之前有一个<p>标记,它们之间不能有空格。
-7.1.3 At-clauses
+ 
+位于“@标记”（如果有展示的话）之前的那些段落之间要有一个空行-也就是只包含着一个对齐的星号（*）的行。除了第一段之外的其他段落都需要在第一个单词之前添加一个<p>标记,它们之间不能有空格。
+ 
 ####7.1.3 @标记
-Any of the standard "at-clauses" that are used appear in the order @param, @return, @throws, @deprecated, and these four types never appear with an empty description. When an at-clause doesn't fit on a single line, continuation lines are indented four (or more) spaces from the position of the @.
-所使用的所有"@标记"都要按照@param、 @return、 @throws、 @deprecated的顺序进行编写，并且它们的描述内容不能为空。
+ 
+所使用的所有标准的"@标记"都要按照`@param`、`@return`、 `@throws`、 `@deprecated`的顺序进行排列，并且它们的描述内容不能为空。
 当@标记子项不能在一行中写完时，后续行要相对于@符号的位置缩进4个（或者更多）的空格。
 
-7.2 The summary fragment
-###7.2
-The Javadoc for each class and member begins with a brief summary fragment. This fragment is very important: it is the only part of the text that appears in certain contexts such as class and method indexes.
-每个类和成员的Javadoc都是从一段简洁的概述片段开始的。这个片段非常重要：它是唯一出现在像类和方法索引这样的某种上下文中的文本。
-This is a fragment—a noun phrase or verb phrase, not a complete sentence. It does not begin with A {@code Foo} is a..., or This method returns..., nor does it form a complete imperative sentence like Save the record.. However, the fragment is capitalized and punctuated as if it were a complete sentence.
+ 
+###7.2 摘要片段（summary fragment）
+ 
+每个类和成员的Javadoc都是从一段简洁的摘要片段开始的。这个片段非常重要：在像类和方法的索引这样的某种上下文中，它是唯一出现的文本。
+ 
 这个片段是一个名词短语或者动词短语，而不是一条完整的句子。它既不会以`A {@code Foo} is a...`或者`This method returns...`这样的文字开头，也不会像`Save the record..`那样组成完成的命令式的句子。但是，由于该片段是首字母大写的，并且有标点符号，使得它看起来好像是一条完整的句子。
-Tip: A common mistake is to write simple Javadoc in the form /** @return the customer ID */. This is incorrect, and should be changed to /** Returns the customer ID. */.
-小提示
-一个常见的错误就是以`/** @return the customer ID */`这样的形式来编写简单的Javadoc。这种方式是错误的，它应该改成`/** Returns the customer ID. */`。
+ 
+>**小提示**: 一个常见的错误就是以`/** @return the customer ID */`这样的形式来编写简单的Javadoc。这种方式是错误的，它应该改成`/** Returns the customer ID. */`。
 
-7.3 Where Javadoc is used
+ 
 ###7.3 何处使用Javadoc
 
-At the minimum, Javadoc is present for every public class, and every public or protected member of such a class, with a few exceptions noted below.
+ 
 至少，Javadoc需要出现在每个public类以及该类的public或protected成员。只有在下面这些情况下例外：
-Other classes and members still have Javadoc as needed. Whenever an implementation comment would be used to define the overall purpose or behavior of a class, method or field, that comment is written as Javadoc instead. (It's more uniform, and more tool-friendly.)
+ 
 其他的类和成员任然根据需要是有Javadoc的。不管什么时候，只要注释是用于定义类、方法或者字段的所有用途时，那么这条注释就应该写成Javadoc（这样就更加一致和对工具友好。）
+ 
+####7.3.1 例外：自解释的方法
+ 
+对于那些“简单、显而易见”的像`getFoo`这样的方法，Javadoc是可有可无的,在这种情况下，除了说“返回foo”之外，确实没有什么其他值得说的了。
 
-7.3.1 Exception: self-explanatory methods
-###7.3.1例外：自解释的方法
-Javadoc is optional for "simple, obvious" methods like getFoo, in cases where there really and truly is nothing else worthwhile to say but "Returns the foo".
-对于那些“简单、显而易见”的像`getFoo`这样的方法，Javadoc是可选的,在这种情况下，除了说“返回foo”之外，确实没有什么其他值得做的了。
-Important: it is not appropriate to cite this exception to justify omitting relevant information that a typical reader might need to know. For example, for a method named getCanonicalName, don't omit its documentation (with the rationale that it would say only /** Returns the canonical name. */) if a typical reader may have no idea what the term "canonical name" means!
-重要提示：也许某些非常重要的信息是许多读者需要了解的，那么拿着该条款来作为将该信息省略的依据是不恰当的。比如，有一个名为`getCanonicalName`的方法，如果读者不知道术语（canonical name）的含义，那么我们就不能（借口说Javadoc的内容只是/** 返回规范化的名称（ canonical name）. */ 而）省略它的文档！
+>**重要提示**：当读者需要了解某些非常重要的信息时，拿着本条款来作为省略Javadoc信息的挡箭牌是不合适的。比如，有一个名为`getCanonicalName`的方法，如果读者不知道术语（canonical name）的含义，那么我们就不能（借口说Javadoc的内容只是`/** 返回规范化的名称（ canonical name）. */` 而）省略它的文档！
 
-7.3.2 Exception: overrides
+ 
 ####7.3.2 例外:重载
-
-Javadoc is not always present on a method that overrides a supertype method.
+ 
 对于那些将父类方法进行重载的方法，Javadoc并不总是需要提供的。
 
 参考来源：
