@@ -155,29 +155,22 @@ return new MyClass() {
 };
 ```
 对于枚举类的一些例外的情况会在4.8.1小节枚举类中进行描述。
-4.1.3 Empty blocks: may be concise
 ####4.1.3 空代码块：可以简洁一些
-一个空的代码块或者块状结构可以在（{}）之间不包含任何字符或者换行，除非它是某个具有多个代码块的语句的一部分（一种直接包含多个代码块的语句有：if/else-if/else or try/catch/finally）
-
+一个空的代码块或者块状结构可以在（{}）之间不包含任何字符或者换行，除非它是某个具有多个代码块的语句的一部分（一种直接包含多个代码块的语句有：`if/else-if/else` 或者 `try/catch/finally`）
 例子：
 ```java
 void doNothing() {}
 ```
 4.2 块缩进：+2个空格
 
-Each time a new block or block-like construct is opened, the indent increases by two spaces. When the block ends, the indent returns to the previous indent level. The indent level applies to both code and comments throughout the block. (See the example in Section 4.1.2, Nonempty blocks: K & R Style.)
-每次开始一个新的代码块或者块状结构时，缩进要增加两个空格。当代码块结束时，缩进要恢复到之前的缩进层级上来。缩进层级的要求同样适用于代码块中的代码和注释。（可参考4.1.2小节中的例子）
-
-
+在每次开始一段新的代码块或者块状结构时，要增加两个空格的缩进。当代码块结束时，缩进要恢复到之前的缩进层级上来。缩进层级的要求同样适用于代码块中的代码和注释。（可参考4.1.2小节（非空代码块:K&R风格）中的例子）
 ###4.3 每行一条语句
 每条语句的后面要有一个换行符。
-###4.4 每行的字符长度限制：为80或100
 
-Projects are free to choose a column limit of either 80 or 100 characters. Except as noted below, any line that would exceed this limit must be line-wrapped, as explained in Section 4.5, Line-wrapping.
-各个项目可以自由选择是采用80还是100作为每行最大的字符长度。除非遇到下面列出的情形，否则的话，那些超过最大字符长度的代码行必须按照第4.5小节（换行）中说明的那样进行换行。
+###4.4 每行的字符长度限制：为80或100
+各个项目可以自行选择是采用80还是100作为每行最大的字符长度。除非遇到下面列出的情形，否则的话，那些超过最大字符长度的代码行必须按照第4.5小节（断行）中说明的那样进行断行。
 
 例外：
-
  - 不可能遵循最大字符长度限制的行（比如，javadoc中很长的URL，或者一个很长的JSNI方法引用）
  - package和import语句（见3.2小节中的Package语句和3.3小节的Import语句）
  - 注释中包含可能会被复制-粘贴到shell中的命令行指令的行。
@@ -186,9 +179,7 @@ Projects are free to choose a column limit of either 80 or 100 characters. Excep
 
 术语说明：当为了避免超过每行最大字符限制，而将那些本来能够合法地只占用一行的代码分到多行时，这种活动就被称作断行。
 
-
 并不存在一种全面的、确定性的准则来解释清楚在每种情况下该如何进行断行。很对时候，对同一块代码有好几种合法的断行方式。
-
 
 >小提示：有可能将方法或者本地变量抽取出来就解决问题了，这样就不再需要进行断行了。
 
@@ -251,10 +242,10 @@ Projects are free to choose a column limit of either 80 or 100 characters. Excep
 >注意： 本规定并不对一行的开始和末尾的空格做出要求和禁止，而只是针对代码内部的空格。
 
 ####4.6.3 水平对齐：不需要
-Terminology Note: Horizontal alignment is the practice of adding a variable number of additional spaces in your code with the goal of making certain tokens appear directly below certain other tokens on previous lines.
+
 术语说明：水平对齐是一种在你的代码中间加入不定数量的额外空格来让本行的某些符号直接出现在上一行的某些符号的下面的实践方式。
 
-这种方式是可以接受的，但是Google编码风格并不会对此进行要求。Google甚至于不要求在那些已经采用了这种方式的地方来继续保持这种水平对齐。
+这种方式是被接受的，但是Google编码风格并不会对此进行要求。Google甚至于不要求在那些已经采用了这种方式的地方来继续保持这种水平对齐。
 
 下面分别是没有采用对齐和采用了对齐的例子：
 ```
@@ -265,7 +256,6 @@ private Color color; // this too
 private int   x;      // permitted, but future edits
 private Color color;  // may leave it unaligned
 ```
-
 >小提示：对齐能够增加代码的可读性，但是它也为将来的维护制造了麻烦。设想一下，未来有一处改动本来只需要影响一行。而这一改动可能使得之前格式化好的代码被破坏掉，并且这是允许的。经常，它会提示写代码的人（可能是你自己）来调整相邻行的空格，而这会触发一连串的重新格式化。那最开始的一行改动现在有了一个“爆炸半径”。极端情况下，这可能造成大量无用的工作，就算是在最好的情况下，这也会破坏版本历史信息，减慢代码审查人员的review速度，并且会造成更多的merge冲突。
 
 ###4.7 分组圆括号：推荐
@@ -310,8 +300,8 @@ new int[] {             3,
 方括号是类型的一部分，而不是变量的一部分，`String[] args`是正确的，不要使用`String args[]`。
 
 ####4.8.4 Switch语句
-Terminology Note: Inside the braces of a switch block are one or more statement groups. Each statement group consists of one or more switch labels (either case FOO: or default:), followed by one or more statements.
-术语说明：在switch代码段的花括号中的是一组或多组的代码。每组代码包含一个或者多个switch标签（要么是`case FOO:`，要么是`default:`），后面跟着一条或者多条语句。
+
+术语说明：在switch代码段的花括号里面的是一组或多组的代码。每组代码包含一个或者多个switch标签（要么是`case FOO:`，要么是`default:`），后面跟着一条或者多条语句。
 
 #####4.8.4.1 缩进
 
@@ -340,27 +330,25 @@ switch (input) {
 
 ####4.8.5 注解
 Annotations applying to a class, method or constructor appear immediately after the documentation block, and each annotation is listed on a line of its own (that is, one annotation per line). These line breaks do not constitute line-wrapping (Section 4.5, Line-wrapping), so the indentation level is not increased. Example:
-应用到类、方法或者构造器上的注解是紧接着文档块展示的，每个注解占据一行。它们之间的换行符并不构成自动换行（4.5小节，自动换行）。所以缩进层级并不会增加。比如：
+作用到类、方法或者构造器上的注解是紧接着列在代码块旁边的，每条注解占一行（也就是每行一条注解）。它们之间的换行符并不构成断行（4.5小节，断行），所以并不会增加缩进层级。比如：
 ```
 @Override
 @Nullable
 public String getNameIfPresent() { ... }
 ```
-Exception: A single parameterless annotation may instead appear together with the first line of the signature, for example:
-例外：如果只有一个注解并且该注解也没有参数，那么它可以和签名的第一行列在一起，比如：
+例外：如果只有一个注解并且该注解没有参数，那么它可以和签名（signature）的第一行列在一起，比如：
 ```
 @Override public int hashCode() { ... }
 ```
-Annotations applying to a field also appear immediately after the documentation block, but in this case, multiple annotations (possibly parameterized) may be listed on the same line; for example:
-应用到字段的注解也可以紧跟着文档块一起出现，但是在这种情况下，多个注解（也有可能是有参数的）可以列在同一行；比如：
+作用到字段的注解也可以紧跟着代码块一起排列，但是在这种情况下，多个注解（也有可能是有参数的）是可以列在同一行的；比如：
 
 ```
 @Partial @Mock DataLoader loader;
 ```
 There are no specific rules for formatting parameter and local variable annotations.
-对于参数和局部变量的注解并没有明确的规范来进行格式化。
+对于参数和局部变量的注解的格式，并没有具体的规范来进行要求。
 4.8.6 Comments
-
+#### 4.8.6 注释
 4.8.6.1 Block comment style
 #####4.8.6.1 块注释样式
 Block comments are indented at the same level as the surrounding code. They may be in /* ... */ style or // ... style. For multi-line /* ... */ comments, subsequent lines must start with * aligned with the * on the previous line.
