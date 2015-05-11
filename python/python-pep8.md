@@ -297,11 +297,14 @@ Wildcard imports ( from <module> import * ) should be avoided, as they make it u
 When republishing names this way, the guidelines below regarding public and internal interfaces still apply.
 当采用这种方式
 String Quotes
+字符串引号
+
 In Python, single-quoted strings and double-quoted strings are the same. This PEP does not make a recommendation for this. Pick a rule and stick to it. When a string contains single or double quote characters, however, use the other one to avoid backslashes in the string. It improves readability.
-
+在Python中，单引号的字符串和双引号的字符串是相同的。本PEP规范并不对此进行要求。只要选择一种方式并一直用下去就可以了。当字符串包含单引号或者双引号字符串时，选择使用另一种方式可以避免在字符串中出现右下划线。这会增加可读性。
 For triple-quoted strings, always use double quote characters to be consistent with the docstring convention in PEP 257 .
-
+对于三个引号的字符串，
 Whitespace in Expressions and Statements
+表达式和代码语句中的空白
 Pet Peeves
 Avoid extraneous whitespace in the following situations:
 
