@@ -307,9 +307,9 @@ Whitespace in Expressions and Statements
 表达式和代码语句中的空白
 Pet Peeves
 Avoid extraneous whitespace in the following situations:
-
+避免在下面的场景中使用无关的空白
 Immediately inside parentheses, brackets or braces.
-
+在圆括号、中括号、花括号的内侧附近
 Yes:
 ```python
 spam(ham[1], {eggs: 2})
@@ -319,7 +319,7 @@ No:
 spam( ham[ 1 ], { eggs: 2 } )
 ```
 Immediately before a comma, semicolon, or colon:
-
+在逗号、分号、冒号的前面
 Yes: if x == 4: print x, y; x, y = y, x
 No:  if x == 4 : print x , y ; x , y = y , x
 However, in a slice the colon acts like a binary operator, and should have equal amounts on either side (treating it as the operator with the lowest priority). In an extended slice, both colons must have the same amount of spacing applied. Exception: when a slice parameter is omitted, the space is omitted.
